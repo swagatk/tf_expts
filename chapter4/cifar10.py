@@ -3,7 +3,6 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 import _pickle as cPickle
-
 DATA_PATH = "/home/swagat/Downloads/cifar-10-python/cifar-10-batches-py/"
 
 
@@ -72,12 +71,13 @@ class CifarDataManager(object):
 
 
 ################
-d = CifarDataManager()
-print("Number of train images: {}".format(len(d.train.images)))
-print("Number of train labels: {}".format(len(d.train.labels)))
-print("Number of test images: {}".format(len(d.test.images)))
-print("Number of test labels: {}".format(len(d.test.labels)))
+if __name__ == '__main__':
+    d = CifarDataManager()
+    print("Number of train images: {}".format(len(d.train.images)))
+    print("Number of train labels: {}".format(len(d.train.labels)))
+    print("Number of test images: {}".format(len(d.test.images)))
+    print("Number of test labels: {}".format(len(d.test.labels)))
 
-images = d.train.images
-display_cifar(images, 10)
-
+    images = d.train.images
+    display_cifar(images, 10)
+######################
