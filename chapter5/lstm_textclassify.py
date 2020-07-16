@@ -40,7 +40,6 @@ seqlens *= 2
 # print(odd_sentences[0:6])
 
 # map words to indices
-
 word2index_map = {}
 index = 0
 for sent in data:
@@ -104,6 +103,7 @@ with tf.name_scope("embeddings"):
                            embedding_dimension],
                           -1.0, 1.0), name='embeddings')
     embed = tf.nn.embedding_lookup(embeddings, _inputs)
+
 
 
 # create LSTM model
