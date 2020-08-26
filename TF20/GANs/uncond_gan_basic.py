@@ -100,7 +100,6 @@ def train():
     #plt.ion()
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    fig.canvas.draw()
     camera = Camera(fig)
     for step in range(40000):
         real_data, fake_data, g_loss_value, d_loss_value = train_step()
