@@ -23,6 +23,7 @@ print(df.Sentiment.value_counts())
 
 # text processing
 def clean_reviews(text):
+    # remove symbols, numbers, punctuations
     text = re.sub("[^a-zA-Z]", " ", str(text))
     return re.sub("^\d+\s|\s\d+\s|\s\d+$", " ", text)
 
@@ -32,26 +33,24 @@ print(df.head(10))
 # Prepare dataset for training
 X = df.Summary
 y = df.Sentiment
-tokernizer = Tokenizer(num_words=10000, oov_token='xxxxxxx')
-tokernizer.fit_on_texts(X)
-X_dict = tokernizer.word_index
+tokenizer = Tokenizer(num_words=10000, oov_token='xxxxxxx')
+tokenizer.fit_on_texts(X)
+X_dict = tokenizer.word_index
 print('length of x_dict: {}'.format(len(X_dict)))
-#print(X_dict.items())
+# print(X_dict.items())
 
-X_seq = tokernizer.texts_to_sequences(X)
+X_seq = tokenizer.texts_to_sequences(X)
 print(X_seq[:10])
 X_padded_seq = pad_sequences(X_seq, padding='post', maxlen=100)
 print('Shape of X_padded_seq: {}'.format(X_padded_seq.shape))
 
-
-#convert pd data to numpy array for labels
+# convert pd data to numpy array for labels
 y = np.array(y)
 y = y.flatten()
 print('Shape of labels: {}'.format(y.shape))
 
 
-# Build the Deep Learning Model
-
+# Build the Deep Learning Model & train
 text_model = tf.keras.Sequential(
     [
         tf.keras.layers.Embedding(input_length=100, input_dim=10000, output_dim=50),
@@ -65,7 +64,7 @@ text_model.compile(loss='binary_crossentropy',
 text_model.summary()
 
 # train
-text_model.fit(X_padded_seq, y, epochs=1)
+text_model.fit(X_padded_seq, y, epochs=10)
 
 
 # Now there are 10,000 embeddings vectors of size 50

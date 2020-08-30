@@ -29,7 +29,7 @@ fig = plt.figure(figsize=(4, 4))
 for i in range(16):
   idx = np.random.choice(np.shape(training_data)[0])
   plt.subplot(4, 4, i+1)
-  plt.imshow(training_data[idx, :,:,0], cmap='gray')
+  plt.imshow(training_data[idx, :, :, 0], cmap='gray')
   plt.axis('off')
 
 print('Close the figure window to proceed ..')
