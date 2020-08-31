@@ -39,14 +39,17 @@ model.summary()
 keras.utils.plot_model(model, to_file='model2.png', show_layer_names=True)
 model.compile(loss="mse", optimizer="sgd")
 
-X_train_A, X_train_B = X_train[:, :5], X_train[:, 2:]
-X_valid_A, X_valid_B = X_valid[:, :5], X_valid[:, 2:]
-X_test_A, X_test_B = X_test[:, :5], X_test[:, 2:]
+# create datasets
+X_train_A, X_train_B = X_train_scaled[:, :5], X_train_scaled[:, 2:]
+X_valid_A, X_valid_B = X_valid_scaled[:, :5], X_valid_scaled[:, 2:]
+X_test_A, X_test_B = X_test_scaled[:, :5], X_test_scaled[:, 2:]
 X_new_A, X_new_B = X_test_A[:3], X_test_B[:3]
 
+#train
 history = model.fit((X_train_A, X_train_B), y_train, epochs=20,
                     validation_data=((X_valid_A, X_valid_B), y_valid))
 mse_test = model.evaluate((X_test_A, X_test_B), y_test)
 y_pred = model.predict((X_new_A, X_new_B))
+
 print('Prediction: ', y_pred)
-print('Actual: ', y_test[:3] )
+print('Actual: ', y_test[:3])
