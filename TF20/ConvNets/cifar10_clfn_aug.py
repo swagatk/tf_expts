@@ -91,7 +91,7 @@ model.compile(loss='sparse_categorical_crossentropy',
 # train
 history = model.fit_generator(
         datagen.flow(X_train, y_train, batch_size=BATCH_SIZE),
-        steps_per_epoch=X_train.shape[0],
+        steps_per_epoch=10000, # X_train.shape[0],
         epochs=NB_EPOCHS)
 
 # evaluate
